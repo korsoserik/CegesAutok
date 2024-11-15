@@ -29,17 +29,17 @@ export default class Megoldas {
     getPersonWithMostRange() {
         const kivitelek = [];
         for (const rsz of this.#RegNumber) {
-            const rszSorok = this.#cars.filter(s => s.rsz === rsz);
+            const rszSorok = this.#cars.filter(s => s.RegNumber === rsz);
             for (let i = 1; i < rszSorok.length; i += 2) {
                 kivitelek.push([
-                    rszSorok[i].km - rszSorok[i - 1].km,
-                    rszSorok[i].dolg
+                    rszSorok[i].Km - rszSorok[i - 1].Km,
+                    rszSorok[i].MemberId
                 ]);
         }
-}
+        }
 
-const maxos = kivitelek.sort((a, b) => a[0] - b[0]).slice(-1)[0];
-console.log(`Leghosszabb út: ${maxos[0]} km, személy: ${maxos[1]}`);
+        const maxos = kivitelek.sort((a, b) => a[0] - b[0]).slice(-1)[0];
+        return(`Leghosszabb út: ${maxos[0]} km, személy: ${maxos[1]}`);
 
     }
 
