@@ -5,6 +5,12 @@ export default class Megoldas {
 
     #cars: Car[] = [];
 
+    getLastCarOut() {
+        const lastCarOut = this.#cars.filter(c => c.IsLeave).sort((a, b) => a.Day - b.Day).pop();
+        return lastCarOut;
+    }
+
+
     constructor(source: string) {
         fs.readFileSync(source)
             .toString()
