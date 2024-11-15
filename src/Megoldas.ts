@@ -39,7 +39,7 @@ export default class Megoldas {
         }
 
         const maxos = kivitelek.sort((a, b) => a[0] - b[0]).slice(-1)[0];
-        return(`Leghosszabb út: ${maxos[0]} km, személy: ${maxos[1]}`);
+        return(`A legtöbb távolságot megtette: ${maxos[0]} személy, távolság: ${maxos[1]} km\n`);
 
     }
 

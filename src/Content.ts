@@ -34,7 +34,7 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
 
     res.write(`6. Feladat\n`);
     const personWithMostRange = mo.getPersonWithMostRange();
-res.write(`A legtöbb távolságot megtette: ${personWithMostRange.memberId} személy, távolság: ${personWithMostRange.range} km\n`);
+    res.write(mo.getPersonWithMostRange());
 
     // <---- Fejezd be a kódolást
 
