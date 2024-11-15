@@ -29,6 +29,9 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`2. Feladat\n`);
     res.write(`A 30. nap rendszám: ${mo.getLastCarOut()?.RegNumber}\n`);
 
+
+
+
     res.write(`3. Feladat\n`);
     let day: number = parseInt(params.get("day") as string);
 
@@ -39,6 +42,14 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     mo.getCarsOnGivenDay(day).forEach(c => {
         res.write(`${c.Time} ${c.RegNumber} ${c.MemberId} ${c.IsLeave ? "ki" : "be"}\n`);
     });
+  
+      res.write(`4. Feladat\n`);
+    res.write(`Nem érkezett vissza: ${mo.getNotArrivedCars()} autó\n`);
+
+    res.write(`6. Feladat\n`);
+    const personWithMostRange = mo.getPersonWithMostRange();
+    res.write(mo.getPersonWithMostRange());
+
 
     // <---- Fejezd be a kódolást
 
