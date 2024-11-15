@@ -2,12 +2,19 @@ import fs from "fs";
 import Car from "./Car";
 
 export default class Megoldas {
-
     #cars: Car[] = [];
+    #RegNumber: string[] = [];
 
-    getLastCarOut() {
-        const lastCarOut = this.#cars.filter(c => c.IsLeave).sort((a, b) => a.Day - b.Day).pop();
-        return lastCarOut;
+    getUniqueRegNumbers() {   
+        for (const car of this.#cars) {
+            if (!this.#RegNumber.includes(car.RegNumber)) {
+                this.#RegNumber.push(car.RegNumber);
+            }
+        }
+    }
+
+    getCarsOnGivenDay(day: number) {
+        return this.#cars.filter(c => c.Day === day);
     }
 
     getNotArrivedCars() {
@@ -16,6 +23,31 @@ export default class Megoldas {
         return ArrivedCars- notArrivedCars;
     }
 
+    getPersonWithMostRange() {
+        const kivitelek = [];
+        for (const rsz of this.#RegNumber) {
+            const rszSorok = this.#cars.filter(s => s.RegNumber === rsz);
+            for (let i = 1; i < rszSorok.length; i += 2) {
+                kivitelek.push([
+                    rszSorok[i].Km - rszSorok[i - 1].Km,
+                    rszSorok[i].MemberId
+                ]);
+        }
+        }
+
+        const maxos = kivitelek.sort((a, b) => a[0] - b[0]).slice(-1)[0];
+        return(`A legtöbb távolságot megtette: ${maxos[0]} személy, távolság: ${maxos[1]} km\n`);
+
+    }
+
+
+    getLastCarOut() {
+        const lastCarOut = this.#cars
+            .filter(c => c.IsLeave)
+            .sort((a, b) => a.Day - b.Day)
+            .pop();
+        return lastCarOut;
+    }
 
     constructor(source: string) {
         fs.readFileSync(source)
@@ -32,5 +64,4 @@ export default class Megoldas {
                 this.#cars.push(new Car(day, time, regNumber, memberId, km, isLeave));
             });
     }
-    
 }
