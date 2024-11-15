@@ -17,6 +17,39 @@ export default class Megoldas {
         return ArrivedCars- notArrivedCars;
     }
 
+    getPersonWithMostRange() {
+        const carMap: Map<string, Car[]> = new Map();
+
+    // Group cars by their registration number
+    this.#cars.forEach(car => {
+        if (!carMap.has(car.RegNumber)) {
+            carMap.set(car.RegNumber, []);
+        }
+        carMap.get(car.RegNumber)!.push(car);
+    });
+
+    let maxKm = 0;
+    let personWithMostRange: number | undefined = undefined;
+
+    // Iterate through each group of cars
+    carMap.forEach(cars => {
+        // Sort cars by day
+        cars.sort((a, b) => a.Day - b.Day);
+
+        for (let i = 1; i < cars.length; i++) {
+            // Check if the car was returned
+            if (cars[i].IsLeave) {
+                const distanceTraveled = cars[i].Km - cars[i - 1].Km;
+                if (distanceTraveled > maxKm) {
+                    maxKm = distanceTraveled;
+                    personWithMostRange = cars[i].MemberId;
+                }
+            }
+        }
+    });
+
+    return { memberId: personWithMostRange, range: maxKm };
+    }
 
     constructor(source: string) {
         fs.readFileSync(source)

@@ -32,6 +32,10 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`4. Feladat\n`);
     res.write(`Nem érkezett vissza: ${mo.getNotArrivedCars()} autó\n`);
 
+    res.write(`6. Feladat\n`);
+    const personWithMostRange = mo.getPersonWithMostRange();
+res.write(`A legtöbb távolságot megtette: ${personWithMostRange.memberId} személy, távolság: ${personWithMostRange.range} km\n`);
+
     // <---- Fejezd be a kódolást
 
     res.write("</pre></form></body></html>");
