@@ -4,6 +4,15 @@ import Car from "./Car";
 export default class Megoldas {
 
     #cars: Car[] = [];
+    #RegNumber: string[] = [];
+
+    getUniqueRegNumbers() {   
+        for (const car of this.#cars) {
+            if (!this.#RegNumber.includes(car.RegNumber)) {
+                this.#RegNumber.push(car.RegNumber);
+            }
+        }
+    }
 
     getLastCarOut() {
         const lastCarOut = this.#cars.filter(c => c.IsLeave).sort((a, b) => a.Day - b.Day).pop();
@@ -11,44 +20,27 @@ export default class Megoldas {
     }
 
     getNotArrivedCars() {
-        //Nem jó
+        
         const notArrivedCars = this.#cars.filter(c => !c.IsLeave).length;
         const ArrivedCars = this.#cars.filter(c => c.IsLeave).length;
         return ArrivedCars- notArrivedCars;
     }
 
     getPersonWithMostRange() {
-        const carMap: Map<string, Car[]> = new Map();
-
-    // Group cars by their registration number
-    this.#cars.forEach(car => {
-        if (!carMap.has(car.RegNumber)) {
-            carMap.set(car.RegNumber, []);
+        const kivitelek = [];
+        for (const rsz of this.#RegNumber) {
+            const rszSorok = this.#cars.filter(s => s.rsz === rsz);
+            for (let i = 1; i < rszSorok.length; i += 2) {
+                kivitelek.push([
+                    rszSorok[i].km - rszSorok[i - 1].km,
+                    rszSorok[i].dolg
+                ]);
         }
-        carMap.get(car.RegNumber)!.push(car);
-    });
+}
 
-    let maxKm = 0;
-    let personWithMostRange: number | undefined = undefined;
+const maxos = kivitelek.sort((a, b) => a[0] - b[0]).slice(-1)[0];
+console.log(`Leghosszabb út: ${maxos[0]} km, személy: ${maxos[1]}`);
 
-    // Iterate through each group of cars
-    carMap.forEach(cars => {
-        // Sort cars by day
-        cars.sort((a, b) => a.Day - b.Day);
-
-        for (let i = 1; i < cars.length; i++) {
-            // Check if the car was returned
-            if (cars[i].IsLeave) {
-                const distanceTraveled = cars[i].Km - cars[i - 1].Km;
-                if (distanceTraveled > maxKm) {
-                    maxKm = distanceTraveled;
-                    personWithMostRange = cars[i].MemberId;
-                }
-            }
-        }
-    });
-
-    return { memberId: personWithMostRange, range: maxKm };
     }
 
     constructor(source: string) {
