@@ -9,8 +9,13 @@ export default class Car {
     public get Day(): number {
         return this.#day;
     }
+    
     public get IsLeave(): boolean {
         return this.#IsLeave;
+    }
+
+    public get RegNumber(): string {
+        return this.#RegNumber;
     }
 
     constructor(day: number, time: string, RegNumber: string, MemberId: number, KM: number, In: number) {
