@@ -11,7 +11,6 @@ export default class Megoldas {
     }
 
     getNotArrivedCars() {
-        //Nem jó
         const notArrivedCars = this.#cars.filter(c => !c.IsLeave).length;
         const ArrivedCars = this.#cars.filter(c => c.IsLeave).length;
         return ArrivedCars- notArrivedCars;
