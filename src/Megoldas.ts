@@ -2,7 +2,6 @@ import fs from "fs";
 import Car from "./Car";
 
 export default class Megoldas {
-
     #cars: Car[] = [];
     #RegNumber: string[] = [];
 
@@ -14,9 +13,8 @@ export default class Megoldas {
         }
     }
 
-    getLastCarOut() {
-        const lastCarOut = this.#cars.filter(c => c.IsLeave).sort((a, b) => a.Day - b.Day).pop();
-        return lastCarOut;
+    getCarsOnGivenDay(day: number) {
+        return this.#cars.filter(c => c.Day === day);
     }
 
     getNotArrivedCars() {
@@ -43,6 +41,15 @@ export default class Megoldas {
 
     }
 
+
+    getLastCarOut() {
+        const lastCarOut = this.#cars
+            .filter(c => c.IsLeave)
+            .sort((a, b) => a.Day - b.Day)
+            .pop();
+        return lastCarOut;
+    }
+
     constructor(source: string) {
         fs.readFileSync(source)
             .toString()
@@ -58,5 +65,4 @@ export default class Megoldas {
                 this.#cars.push(new Car(day, time, regNumber, memberId, km, isLeave));
             });
     }
-    
 }

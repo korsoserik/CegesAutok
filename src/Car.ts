@@ -1,5 +1,5 @@
 export default class Car {
-    #day:  number;
+    #day: number;
     #time: string;
     #RegNumber: string;
     #MemberId: number;
@@ -36,7 +36,7 @@ export default class Car {
         this.#RegNumber = RegNumber;
         this.#MemberId = MemberId;
         this.#KM = KM;
-        if(In == 0) {
+        if (In == 0) {
             this.#IsLeave = true;
         } else {
             this.#IsLeave = false;
