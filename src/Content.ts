@@ -1,6 +1,7 @@
 ﻿import fs from "fs"; // https://nodejs.org/docs/latest-v14.x/api/fs.html
 import http from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
 import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
+import Megoldas from "./Megoldas";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -23,20 +24,11 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     const params = new url.URL(req.url as string, `http://${req.headers.host}/`).searchParams;
 
     // Kezd a kódolást innen -->
-
-    res.write("Egyszerű Hello World! (2024/2025)\n");
-
-    // Tetszőleges html teg-ek és attribútumok beépítése:
-    res.write("<span style='color: blue;'><i>Színes és dőlt Hello World!'</i></span>\n");
-
-    // Próbáljuk számra konvertálni a "kor" paraméter (http://localhost:8080/?kor=16) értékét:
-    let korod = parseInt(params.get("kor") as string);
-    // Ha nincs "kor" paraméter megadva, vagy nem lehet számra konvertálni értékét,
-    // akkor a "korod" változóba NaN érték kerül, ilyenkor legyen 18 év az értéke:
-    if (isNaN(korod)) korod = 18;
-
-    res.write(`<label>Kérem a korod: <input type='number' name='kor' value=${korod} style='max-width:100px;' onChange='this.form.submit();'></label>\n`);
-    res.write(`Te ${korod} éves vagy!\n`);
+    const mo: Megoldas = new Megoldas("autok.txt");
+    
+    res.write(`2. Feladat\n`);
+    res.write(`A 30. nap rendszám: ${mo.getLastCarOut()?.RegNumber}\n`);
+    
 
     // <---- Fejezd be a kódolást
 
