@@ -28,7 +28,9 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     
     res.write(`2. Feladat\n`);
     res.write(`A 30. nap rendszám: ${mo.getLastCarOut()?.RegNumber}\n`);
-    
+
+    res.write(`4. Feladat\n`);
+    res.write(`Nem érkezett vissza: ${mo.getNotArrivedCars()} autó\n`);
 
     // <---- Fejezd be a kódolást
 
