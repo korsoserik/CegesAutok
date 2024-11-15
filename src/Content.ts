@@ -25,10 +25,20 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
 
     // Kezd a kódolást innen -->
     const mo: Megoldas = new Megoldas("autok.txt");
-    
+
     res.write(`2. Feladat\n`);
     res.write(`A 30. nap rendszám: ${mo.getLastCarOut()?.RegNumber}\n`);
-    
+
+    res.write(`3. Feladat\n`);
+    let day: number = parseInt(params.get("day") as string);
+
+    res.write(`Nap: <input type='text' name='day' value='${day}' style='max-width:100px;' onChange='this.form.submit();'>\n`);
+
+    res.write(`Forgalom a(z) ${day} napon\n`);
+
+    mo.getCarsOnGivenDay(day).forEach(c => {
+        res.write(`${c.Time} ${c.RegNumber} ${c.MemberId} ${c.IsLeave ? "ki" : "be"}\n`);
+    });
 
     // <---- Fejezd be a kódolást
 

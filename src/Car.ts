@@ -1,5 +1,5 @@
 export default class Car {
-    #day:  number;
+    #day: number;
     #time: string;
     #RegNumber: string;
     #MemberId: number;
@@ -9,7 +9,19 @@ export default class Car {
     public get Day(): number {
         return this.#day;
     }
-    
+
+    public get Time(): string {
+        return this.#time;
+    }
+
+    public get MemberId(): number {
+        return this.#MemberId;
+    }
+
+    public get KM(): number {
+        return this.#KM;
+    }
+
     public get IsLeave(): boolean {
         return this.#IsLeave;
     }
@@ -24,7 +36,7 @@ export default class Car {
         this.#RegNumber = RegNumber;
         this.#MemberId = MemberId;
         this.#KM = KM;
-        if(In == 0) {
+        if (In == 0) {
             this.#IsLeave = true;
         } else {
             this.#IsLeave = false;
