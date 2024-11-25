@@ -1,7 +1,7 @@
 ﻿import fs from "fs"; // https://nodejs.org/docs/latest-v14.x/api/fs.html
-import http from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
+import http, { get } from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
 import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
-import Megoldas from "./Megoldas";
+import { Megoldas } from "./Megoldas";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -29,11 +29,8 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`2. Feladat\n`);
     res.write(`A 30. nap rendszám: ${mo.getLastCarOut()?.RegNumber}\n`);
 
-
-
-
     res.write(`3. Feladat\n`);
-    let day: number = parseInt(params.get("day") as string);
+    const day: number = parseInt(params.get("day") as string);
 
     res.write(`Nap: <input type='text' name='day' value='${day}' style='max-width:100px;' onChange='this.form.submit();'>\n`);
 
@@ -42,10 +39,14 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     mo.getCarsOnGivenDay(day).forEach(c => {
         res.write(`${c.Time} ${c.RegNumber} ${c.MemberId} ${c.IsLeave ? "ki" : "be"}\n`);
     });
-  
-      res.write(`4. Feladat\n`);
-    res.write(`Nem érkezett vissza: ${mo.getNotArrivedCars()} autó\n`);
 
+    res.write(`4. Feladat\n`);
+    res.write(`Nem érkezett vissza: ${mo.getNotArrivedCars()} autó\n`);
+    res.write(`5. Feladat\n`);
+    // res.write(`A hónap végén ${mo.getDistanceDrivenByEachCar().length} autó hiányzott\n`);
+    mo.getDistanceDrivenByEachCar().forEach(d => {
+        res.write(`${d[0]}: ${d[1]} km\n`);
+    });
     res.write(`6. Feladat\n`);
     mo.getUniqueRegNumbers();
     // const personWithMostRange = mo.getPersonWithMostRange();
