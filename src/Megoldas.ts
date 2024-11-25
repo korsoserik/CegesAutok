@@ -30,7 +30,7 @@ export default class Megoldas {
             .pop();
         return lastCarOut;
     }
-    
+
     getPersonWithMostRange() {
         const kivitelek = [];
         for (const rsz of this.#RegNumber) {
@@ -44,7 +44,8 @@ export default class Megoldas {
         }
 
         const maxos = kivitelek.sort((a, b) => a[0] - b[0]).slice(-1)[0];
-        return(`A legtöbb távolságot megtette: ${maxos[0]} személy, távolság: ${maxos[1]} km\n`);
+        return(`A legtöbb távolságot megtette: ${maxos[0]} km, távolság: ${maxos[1]} személy\n`);
+        
 
     }
 
