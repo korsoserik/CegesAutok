@@ -23,6 +23,14 @@ export default class Megoldas {
         return ArrivedCars- notArrivedCars;
     }
 
+    getLastCarOut() {
+        const lastCarOut = this.#cars
+            .filter(c => c.IsLeave)
+            .sort((a, b) => a.Day - b.Day)
+            .pop();
+        return lastCarOut;
+    }
+    
     getPersonWithMostRange() {
         const kivitelek = [];
         for (const rsz of this.#RegNumber) {
@@ -41,14 +49,7 @@ export default class Megoldas {
     }
 
 
-    getLastCarOut() {
-        const lastCarOut = this.#cars
-            .filter(c => c.IsLeave)
-            .sort((a, b) => a.Day - b.Day)
-            .pop();
-        return lastCarOut;
-    }
-
+    
     constructor(source: string) {
         fs.readFileSync(source)
             .toString()

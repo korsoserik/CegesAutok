@@ -47,7 +47,8 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`Nem érkezett vissza: ${mo.getNotArrivedCars()} autó\n`);
 
     res.write(`6. Feladat\n`);
-    const personWithMostRange = mo.getPersonWithMostRange();
+    mo.getUniqueRegNumbers();
+    // const personWithMostRange = mo.getPersonWithMostRange();
     res.write(mo.getPersonWithMostRange());
 
 
