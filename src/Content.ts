@@ -52,6 +52,15 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     // const personWithMostRange = mo.getPersonWithMostRange();
     res.write(mo.getPersonWithMostRange());
 
+    // 7. Feladat
+    res.write(`7. Feladat\n`);
+    let rendszam: string = params.get("rendszam") as string;
+    res.write(`Rendszám: <input type='text' name='rendszam' value='${rendszam}' style='max-width:100px;' onChange='this.form.submit();'>\n`);
+    if (rendszam !== null) {
+        mo.FileWrite(rendszam);
+    }
+
+
     // <---- Fejezd be a kódolást
 
     res.write("</pre></form></body></html>");
