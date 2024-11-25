@@ -16,11 +16,19 @@ export class Megoldas {
     getCarsOnGivenDay(day: number) {
         return this.#cars.filter(c => c.Day === day);
     }
-
+    // 4. feladat
     getNotArrivedCars() {
-        const notArrivedCars = this.#cars.filter(c => !c.IsLeave).length;
-        const ArrivedCars = this.#cars.filter(c => c.IsLeave).length;
-        return ArrivedCars - notArrivedCars;
+        let db = 0;
+        this.#cars.forEach((car, index) => {
+            if (car.IsLeave) {
+                const visszahozatal = this.#cars.find((r, i) => i > index && r.IsLeave === false && r.MemberId === car.MemberId);
+                if (!visszahozatal) {
+                    db++;
+                }
+            }
+        });
+
+        return db;
     }
 
     getLastCarOut() {
