@@ -12,7 +12,7 @@ describe("Megoldas osztály unit tesztek", () => {
     it("Should return the person with the most range", () => { // 6. feladat
         expect(instance.getPersonWithMostRange()).toBe("A legtöbb távolságot megtette: 1551 km, távolság: 506 személy\n");
     });
-    it("Should return cars on given day", () => {
+    it("Should return cars on given day", () => { // 5.Feladat
         const day = 3;
         const carsOnDay = instance.getCarsOnGivenDay(day);
         expect(carsOnDay.length).toBeGreaterThan(0);
@@ -20,5 +20,6 @@ describe("Megoldas osztály unit tesztek", () => {
             expect(car.Day).toBe(day);
         });
     });
+
 
 });
