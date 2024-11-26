@@ -25,5 +25,11 @@ describe("Megoldas osztály unit tesztek", () => {
     it("Sholud be 2 cars on day 4", () => {
         expect(instance.getCarsOnGivenDay(4).length).toBe(2);
     });
+    const fs = require("fs");
+    it("Files should be equal", () => {
+        let res = fs.readFileSync("CEG304_menetlevel.txt").toString();
+        let expected = fs.readFileSync("CEG304_menetlevel_OH_jo.txt").toString();
+        expect(res).toEqual(expected);
+    });
 });
 
