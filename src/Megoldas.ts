@@ -75,16 +75,16 @@ export class Megoldas {
                     record.MemberId,
                     `${record.Day}. ${record.Time}`,
                     `${record.Km} km`,
-                    visszahozatal ? `${visszahozatal.Day}. ${visszahozatal.Time}`: "",
-                    visszahozatal ?`${visszahozatal.Km} km`: ""
-                ].join('\t'));          
+                    visszahozatal ? `${visszahozatal.Day}. ${visszahozatal.Time}`: null,
+                    visszahozatal ?`${visszahozatal.Km} km`: null,
+                ].filter(x => x !=null).join('\t'));          
         }
         
     });
 
     if (lines.length > 0) {
         // Írás a fájlba
-        fs.writeFile(fileName, lines.join('\n'), (err) => {
+        fs.writeFile(fileName, lines.join('\r\n'), (err) => {
             if (err) {
                 console.error('Hiba történt a fájl írása során:', err);
             } else {
