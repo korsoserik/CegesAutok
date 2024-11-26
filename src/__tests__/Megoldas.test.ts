@@ -21,6 +21,9 @@ describe("Megoldas osztály unit tesztek", () => {
             expect(car.Day).toBe(day);
         });
     });
-
-
+        // 3. Feladat
+    it("Sholud be 2 cars on day 4", () => {
+        expect(instance.getCarsOnGivenDay(4).length).toBe(2);
+    });
 });
+
