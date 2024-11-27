@@ -58,7 +58,13 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`Rendszám: <input type='text' name='rendszam' value='${rendszam}' style='max-width:100px;' onChange='this.form.submit();'>\n`);
     if (rendszam !== null) {
         mo.FileWrite(rendszam);
+        res.write("Menetlevél kész.")
     }
+    else{
+       res.write("A rendzám mező üres"); 
+    }
+    
+
 
 
     // <---- Fejezd be a kódolást

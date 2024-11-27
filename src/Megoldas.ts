@@ -56,41 +56,34 @@ export class Megoldas {
     FileWrite(rendszám: string){
         const fileName = `${rendszám}_menetlevel.txt`;
         const filteredRecords = this.#cars.filter(record => record.RegNumber === rendszám);
-
-    if (filteredRecords.length === 0) {
-        console.log('Nincs adat a megadott rendszámhoz.');
-
-        return;
-    }
-    const lines: string[] = [];
-
-    filteredRecords.forEach((record, index) => {
-        if (record.IsLeave == true) { // Kijárat
-            const visszahozatal = filteredRecords.find((r, i) => i > index && r.IsLeave == false && r.MemberId === record.MemberId);
-                lines.push([
-                    record.MemberId,
-                    `${record.Day}. ${record.Time}`,
-                    `${record.Km} km`,
-                    visszahozatal ? `${visszahozatal.Day}. ${visszahozatal.Time}`: null,
-                    visszahozatal ?`${visszahozatal.Km} km`: null,
-                ].filter(x => x !=null).join('\t'));          
+        if (filteredRecords.length === 0) {
+            console.log('Nincs adat a megadott rendszámhoz.');
+            return;
         }
-        
-    });
-
-    if (lines.length > 0) {
-        fs.writeFile(fileName, lines.join('\r\n'), (err) => {
-            if (err) {
-                console.error('Hiba történt a fájl írása során:', err);
-            } else {
-                console.log(`A menetlevél sikeresen létrejött: ${fileName}`);
-            }
+        const lines: string[] = [];
+        filteredRecords.forEach((record, index) => {
+            if (record.IsLeave == true) { // Kijárat
+                const visszahozatal = filteredRecords.find((r, i) => i > index && r.IsLeave == false && r.MemberId === record.MemberId);
+                    lines.push([
+                        record.MemberId,
+                        `${record.Day}. ${record.Time}`,
+                        `${record.Km} km`,
+                        visszahozatal ? `${visszahozatal.Day}. ${visszahozatal.Time}`: null,
+                        visszahozatal ?`${visszahozatal.Km} km`: null,
+                    ].filter(x => x !=null).join('\t'));          
+            }     
         });
-    } else {
-        console.log('Nincs elegendő adat a menetlevél elkészítéséhez.');
-    }
-
-
+        if (lines.length > 0) {
+            fs.writeFile(fileName, lines.join('\r\n'), (err) => {
+                if (err) {
+                    console.error('Hiba történt a fájl írása során:', err);
+                } else {
+                    console.log(`A menetlevél sikeresen létrejött: ${fileName}`);
+                }
+            });
+        } else {
+            console.log('Nincs elegendő adat a menetlevél elkészítéséhez.');
+        }
     }
 
     getDistanceDrivenByEachCar() {
