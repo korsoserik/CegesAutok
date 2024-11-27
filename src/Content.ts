@@ -41,7 +41,7 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     });
 
     res.write(`4. Feladat\n`);
-    res.write(`Nem érkezett vissza: ${mo.getNotArrivedCars()} autó\n`);
+    res.write(`A hónap végén ${mo.getNotArrivedCars()} autót nem hoztak vissza.\n`);
     res.write(`5. Feladat\n`);
     // res.write(`A hónap végén ${mo.getDistanceDrivenByEachCar().length} autó hiányzott\n`);
     mo.getDistanceDrivenByEachCar().forEach(d => {
@@ -58,7 +58,13 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`Rendszám: <input type='text' name='rendszam' value='${rendszam}' style='max-width:100px;' onChange='this.form.submit();'>\n`);
     if (rendszam !== null) {
         mo.FileWrite(rendszam);
+        res.write("Menetlevél kész.")
     }
+    else{
+       res.write("A rendzám mező üres"); 
+    }
+    
+
 
 
     // <---- Fejezd be a kódolást
