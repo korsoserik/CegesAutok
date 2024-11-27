@@ -31,5 +31,20 @@ describe("Megoldas osztály unit tesztek", () => {
         let expected = fs.readFileSync("CEG304_menetlevel_OH_jo.txt").toString();
         expect(res).toEqual(expected);
     });
+    it("Shoud return the cars", () => {
+        let expected : [string, number][] = [
+            ["CEG300", 6751],
+            ["CEG301", 5441],
+            ["CEG302", 5101],
+            ["CEG303", 7465],
+            ["CEG304", 6564],
+            ["CEG305", 5232],
+            ["CEG306", 7165],
+            ["CEG307", 6489],
+            ["CEG308", 6745],
+            ["CEG309", 1252]
+        ];
+        expect(instance.getDistanceDrivenByEachCar()).toEqual(expected);
+    });
 });
 
