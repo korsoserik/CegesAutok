@@ -49,7 +49,7 @@ export class Megoldas {
         }
 
         const maxos = kivitelek.sort((a, b) => a[0] - b[0]).slice(-1)[0];
-        return `A legtöbb távolságot megtette: ${maxos[0]} km, távolság: ${maxos[1]} személy\n`;
+        return `Leghosszabb út: ${maxos[0]} km, személy: ${maxos[1]}\n`;
         
     }
 
@@ -62,10 +62,6 @@ export class Megoldas {
 
         return;
     }
-
-    // A fájl neve
-
-    // Az adatok feldolgozása és fájlba írás
     const lines: string[] = [];
 
     filteredRecords.forEach((record, index) => {
@@ -83,7 +79,6 @@ export class Megoldas {
     });
 
     if (lines.length > 0) {
-        // Írás a fájlba
         fs.writeFile(fileName, lines.join('\r\n'), (err) => {
             if (err) {
                 console.error('Hiba történt a fájl írása során:', err);
